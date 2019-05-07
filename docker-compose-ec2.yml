@@ -9,15 +9,19 @@ services:
       MYSQL_USER: db_user
       MYSQL_PASSWORD: db_pass
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - data_db:/var/lib/mysql
     networks:
       - "wpn"
   wordpress:
-    image: wordpress:latest
+    build:
+      context: .
+      dockerfile: Dockerfile-wordpress
     restart: always
     expose:
-      - "3000"
+      - "4000"
     ports:
-      - 3000:80
+      - 4000:80
     links:
       - mysql
     environment:
@@ -26,14 +30,7 @@ services:
       WORDPRESS_DB_PASSWORD: db_pass
       WORDPRESS_DB_NAME: wp
       WORDPRESS_CONFIG_EXTRA: ''
-    volumes:
-      - ".wp:/var/www/html"
-    networks:
-      - "wpn"
-  phpcs:
-    image: herloct/phpcs
-    volumes:
-      - ./dist:/var/www/html/
+    working_dir: /var/www/html
     networks:
       - "wpn"
   wp-cli:
@@ -41,19 +38,19 @@ services:
     links:
       - mysql
       - wordpress
-    # user: xfs
     depends_on:
       - wordpress
     command: >
         /bin/sh -c '
         sleep 30;
-        wp core install --path="/var/www/html" --url="http://localhost:3000" --title="Local Wordpress" --admin_user=wp --admin_password=wp --admin_email=a@d.min && echo "WP Core Complete"'
+        wp core install --path="/var/www/html" --url="http://34.216.221.178:4000" --title="Local Wordpress" --admin_user=admin --admin_password=admin --admin_email=a@d.min && echo "WP Core Complete"'
     volumes:
       - ".wp:/var/www/html:rw"
     networks:
       - "wpn"
 
 volumes:
+  data_db:
   .wp:
     driver: local
 

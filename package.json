@@ -16,7 +16,9 @@
 		"stop": "./bin/stop",
 		"teardown": "./bin/teardown",
 		"vip": "./bin/vip",
-		"watch": "./bin/watch"
+		"watch": "./bin/watch",
+		"push": "./bin/push",
+		"teardown-ec2": "./bin/teardown-ec2"
 	},
 	"devDependencies": {
 		"commander": "^2.20.0",
