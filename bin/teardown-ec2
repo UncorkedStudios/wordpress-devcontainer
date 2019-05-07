@@ -1,0 +1,16 @@
+#!/bin/bash
+
+read -p "Are you sure you want to completely recreate the EC2 machine? ALL DATA WILL BE LOST " -n 1 -r
+echo
+
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    echo "DESTROYING EC2..."
+    eval "$(docker-machine env fb-diversity-dev-2)"
+    docker-compose -f docker-compose-ec2.yml down --volumes --remove-orphans --rmi 'all'
+    echo
+
+    echo "re-pushing and starting containers..."
+    eval "$(docker-machine env fb-diversity-dev-2)"
+    docker-compose -f docker-compose-ec2.yml up --detach --build
+fi

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "running docker-compose up for ec2 dev server/machine..."
+eval "$(docker-machine env fb-diversity-dev-2)"
+docker-compose -f docker-compose-ec2.yml up --detach --build
