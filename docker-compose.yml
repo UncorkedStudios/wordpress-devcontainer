@@ -12,7 +12,7 @@ services:
     networks:
       - "wpn"
   wordpress:
-    image: wordpress:latest
+    image: wordpress:php7.3-apache
     restart: always
     expose:
       - "3000"
