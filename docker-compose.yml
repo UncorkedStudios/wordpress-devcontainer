@@ -37,7 +37,7 @@ services:
     networks:
       - "wpn"
   wp-cli:
-    image: wordpress:cli
+    image: wordpress:php7.3-apache
     links:
       - mysql
       - wordpress
