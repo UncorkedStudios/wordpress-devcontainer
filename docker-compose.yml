@@ -30,14 +30,14 @@ services:
       - ".wp:/var/www/html"
     networks:
       - "wpn"
-  phpcs:
-    image: herloct/phpcs
-    volumes:
-      - ./dist:/var/www/html/
-    networks:
-      - "wpn"
+  # phpcs:
+  #   image: herloct/phpcs
+  #   volumes:
+  #     - ./dist:/var/www/html/
+  #   networks:
+  #     - "wpn"
   wp-cli:
-    image: wordpress:php7.3-apache
+    image: wordpress:cli
     links:
       - mysql
       - wordpress
