@@ -69,3 +69,7 @@ build/
 dist/**/*
 ## source folder
 src/**/*
+
+# wp backup
+*.sql
+_backups/uploads/*

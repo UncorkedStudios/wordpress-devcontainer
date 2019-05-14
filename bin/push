@@ -1,5 +1,12 @@
 #!/bin/bash
 
-echo "running docker-compose up for ec2 dev server/machine..."
 eval "$(docker-machine env fb-diversity-dev-2)"
-docker-compose -f docker-compose-ec2.yml --verbose up --detach --build --force-recreate --renew-anon-volumes
+
+echo "backing up ec2 mysql..."
+docker exec wordpress-devcontainer_mysql_1 /usr/bin/mysqldump -u db_user --password=db_pass wp > _backups/db/ec2_$(date +"%s")_backup.sql
+
+echo "syncing uploads directory to local .wp volume..."
+docker cp wordpress-devcontainer_wordpress_1:/var/www/html/wp-content/uploads/ .wp/wp-content/
+
+echo "running docker-compose up for ec2 dev server/machine..."
+docker-compose -f docker-compose-ec2.yml up --detach --build --force-recreate --renew-anon-volumes

@@ -6,6 +6,7 @@
 	"contributors": [],
 	"bin": {},
 	"scripts": {
+		"backup": "./bin/backup",
 		"build": "./bin/build",
 		"clean": "./bin/clean",
 		"compile": "./bin/compile",

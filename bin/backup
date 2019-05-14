@@ -1,0 +1,14 @@
+#!/bin/bash
+
+echo "running docker-compose up for ec2 dev server/machine..."
+
+eval "$(docker-machine env fb-diversity-dev-2)"
+
+# backup remote mysql to local dir
+docker exec wordpress-devcontainer_mysql_1 /usr/bin/mysqldump -u db_user --password=db_pass wp > _backups/ec2_$(date +"%s")_backup.sql
+
+# copy uploads to _backup dir
+docker cp wordpress-devcontainer_wordpress_1:/var/www/html/wp-content/uploads/ _backups/
+
+# sync remote uploads to local .wp volume
+docker cp wordpress-devcontainer_wordpress_1:/var/www/html/wp-content/uploads/ .wp/wp-content/
