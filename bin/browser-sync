@@ -1,0 +1,11 @@
+#!/bin/bash
+
+wpFolder="./.wp"
+
+if ! [ -x "$(command -v browser-sync)" ]; then
+  echo "missing browser-sync"
+  echo "install globally: npm install -g browser-sync"
+  exit 1
+fi
+
+browser-sync start --proxy 'localhost:3000' -f $wpFolder

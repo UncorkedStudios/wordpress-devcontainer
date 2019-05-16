@@ -6,8 +6,10 @@
 	"contributors": [],
 	"bin": {},
 	"scripts": {
+		"auto-deploy": "watch 'npm run deploy -k' ./src --ignoreDotFiles --ignoreUnreadable --wait=1",
 		"backup": "./bin/backup",
 		"build": "./bin/build",
+		"browser-sync": "./bin/browser-sync",
 		"clean": "./bin/clean",
 		"compile": "./bin/compile",
 		"deploy": "./bin/deploy",
@@ -22,6 +24,7 @@
 		"teardown-ec2": "./bin/teardown-ec2"
 	},
 	"devDependencies": {
+		"chalk": "^2.4.2",
 		"commander": "^2.20.0",
 		"download-git-repo": "^1.1.0",
 		"fs-extra": "^7.0.1",
@@ -31,7 +34,7 @@
 		"mocha": "^6.1.3",
 		"path": "^0.12.7",
 		"replace-in-file": "^3.4.4",
-		"chalk": "^2.4.2"
+		"watch": "^1.0.2"
 	},
 	"config": {
 		"vip": true,
