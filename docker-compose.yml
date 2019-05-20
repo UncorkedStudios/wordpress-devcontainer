@@ -9,6 +9,8 @@ services:
       MYSQL_USER: db_user
       MYSQL_PASSWORD: db_pass
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    ports:
+      - "4306:3306"
     networks:
       - "wpn"
   wordpress:
