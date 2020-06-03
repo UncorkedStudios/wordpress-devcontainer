@@ -3,20 +3,42 @@ This is a simple little wordpress developer environment which provides source fi
 
 As a quikstart, I've included the understrap child theme (https://understrap.com/). The compilation task runs the necessary tasks to update the understrap child theme. To use a different theme package, delete the files in the src/theme folder and update the compilation tasks as needed.
 
-# Quikstart
-## Install
+# Getting started
+## npm install
 Run `npm install` to install the required node packages.
 
-## Run and deploy local wordpress
-`npm run start` - creates the docker environment, if it does not exist, and runs wordpress at http://localhost:4000. Run `npm run deploy` to copy all of the plugin and theme files to the wordpress installation. The theme and plugin will need to be activated from the wordpress admin after the first deploy. After making changes to the source files, run `npm run redeploy` to have wordpress reflect those changes.
+## Docker setup
+Recommend downloading, installing, and running [Docker Desktop](https://www.docker.com/products/docker-desktop) (have had issues with homebrew-based versions). Should boot up on its own and make all `docker`/`docker-machine`/`docker-compose` commands immediately available in your shell.
 
-When first creating the docker environment you will need to wait at least 30 seconds before the `wp core install` command finishes. If you try to request localhost before this process has finished you may see the wordpress install screen. Once the install is finished you will see that the file ./wp/wp-config.php exists and that localhost is ready for requests.
+## Run and deploy local Docker machine, Wordpress install
+`npm run start` - creates the docker environment, if it does not exist, and runs Wordpress at http://localhost:3000. Note, if you need to change the localhost port, update the `services.wordpress.ports` value in `docker-compose.yml`.
+
+Run `npm run deploy` to copy all of the plugin and theme files to the wordpress installation. The theme and plugin will need to be activated from the wordpress admin after the first deploy.
+
+After making changes to the source files, run `npm run redeploy` to have wordpress reflect those changes.
+
+When first creating the docker environment you will need to wait ~30 seconds before the `wp core install` command finishes. If you try to request localhost before this process has finished you may see the wordpress install screen. Once the install is finished you will see that the file ./wp/wp-config.php exists and that localhost is ready for requests.
 
 An admin user will be created by the `wp core install` processs. The credentials for this account are 
 ```
-	user: admin
-	pass: admin
+Username: wp
+Password: wp
 ```
+
+## Pulling data down
+Using the native Wordpress Importer should work fine for pulling data down, just make sure to check the "Download file attachments and media" box. It'll likely take ~2-3mins to complete.
+
+Reach out to Josh for an XML export.
+
+## Initial configuration
+After the XML import is complete, you'll want to complete the following to get things configured/working:
+
+- Activate "Facebook Diversity" theme and fb-diversity plugin
+- Assign Main Menu to Primary Menu (Appearance -> Menus)
+- Set and save permalinks (Custom Structure -> /%category%/%subcategory%/%postname%/)
+- Set homepage to "Home" page (Settings -> Reading)
+
+Should be good to go!
 
 # Requirements
 ## These items are assumed to be installed
